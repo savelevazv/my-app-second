@@ -1,26 +1,31 @@
 import { type } from "@testing-library/user-event/dist/type";
 import React from "react";
 import { FC } from "react";
+import { LinksStyled } from "./Link";
+import { StyledFont20, Title } from "./Styled/Fonts.styled";
+import styled from "styled-components";
+import { Flex, StyledFlexContainer } from "./Styled/Flex.styled";
 
-interface CategoriesElementProps {
-    to: string,
-    title: string
-}
-
-export const CategoriesElement: FC<CategoriesElementProps> = ({ to, title }): JSX.Element => {
+export const CategoriesElement: FC<NavigationArrayItem> = ({ to, title }): JSX.Element => {
     return (
-        <div className="categories--element">
-            <a href={to}>{title}</a>
-        </div>
+        <StyledFlexContainer
+            padding={'14px 27px'}
+            mr={'32px'}
+            mb={'20px'}
+        >
+            <StyledFont20>
+                <LinksStyled href={to}>{title}</LinksStyled>
+            </StyledFont20>
+        </StyledFlexContainer>
     )
 }
 
-interface ArrayItem {
+export interface NavigationArrayItem {
     to: string,
     title: string
 }
 
-type LinkedArray = Array<ArrayItem>
+type LinkedArray = Array<NavigationArrayItem>
 
 const elements: LinkedArray = [
     {
@@ -61,12 +66,23 @@ const elements: LinkedArray = [
     },
 ]
 
+const CategoriesComment = styled(StyledFont20)`
+    & {
+        margin-bottom: 36px;
+    }
+`
+
 export const Categories: FC = () => {
     return (
         <div className="categories--container">
-            <h3 className="categories--title font--base style36">Категории</h3>
-            <p className="categories--comment font--base style20">*Выберите категорию, чтобы перейти в раздел магазина</p>
-            <div className="categories--list--container font--base style20">
+            <Title margin={'48px 0 20px 0'}>Категории</Title>
+            <CategoriesComment>*Выберите категорию, чтобы перейти в раздел магазина</CategoriesComment>
+            <Flex
+                direction={'row'}
+                justify={'flex-start'}
+                wrap={'wrap'}
+                mb={'28px'}
+            >
                 {elements.map((el) => {
                     return (
                         <CategoriesElement
@@ -75,7 +91,7 @@ export const Categories: FC = () => {
                         />
                     )
                 })}
-            </div>
+            </Flex>
         </div>
     )
 }

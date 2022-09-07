@@ -1,5 +1,6 @@
 import React from "react";
 import { FC } from "react";
+import { LinksStyled } from "../Link";
 
 interface PhoneNumberProps {
     number: string
@@ -8,6 +9,6 @@ interface PhoneNumberProps {
 export const PhoneNumber: FC<PhoneNumberProps> = ({ number }): JSX.Element => {
     const numberToStr = `tel: ${number}`
     return (
-        <a href={numberToStr}>{number}</a>
+        <LinksStyled href={numberToStr}>{number}</LinksStyled>
     )
 }

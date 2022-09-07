@@ -1,10 +1,13 @@
 import React, { FC } from "react";
 import { Link } from "../Link";
 import { PhoneNumber } from "./PhoneNumber";
+import { NavigationArrayItem } from "../Categories"
+import styled from "styled-components";
+import { Flex } from "../Styled/Flex.styled";
+import { StyledFont24, Title } from "../Styled/Fonts.styled";
 
-interface ArrayMenuElements {
-    to: string,
-    tittle: string,
+
+interface ArrayMenuElements extends NavigationArrayItem {
     basicStyle?: boolean
 }
 
@@ -19,32 +22,48 @@ const menuElements = [
 
 ]
 
+const HeaderContainer = styled(Flex)`
+    & {
+        background-color: #F8F7F7;
+    }
+`
+
 export const Header: FC = () => {
     return (
-        <div className="header--container">
-            <div className="logo--container font--base style36">
+        <HeaderContainer
+            justify={'center'}
+            align={'center'}
+            width={'100%'}
+            height={'100px'}
+        >
+            <Title>
                 <Link
                     to={'/'}
                     title={'Logo'}
                     basicStyle={true}
                 />
-            </div>
-            <div className="links--container font--base style24">
-                {menuElements.map((el) => {
-                    return (
-                        <Link
-                            to={el.to}
-                            title={el.title}
-                            basicStyle={el.basicStyle}
-                        />
-                    )
-                })}
-            </div>
-            <div className="phone--number--container font--base style24">
+            </Title>
+            <StyledFont24>
+                <Flex
+                    pl={'90px'}
+                    pr={'80px'}
+                >
+                    {menuElements.map((el) => {
+                        return (
+                            <Link
+                                to={el.to}
+                                title={el.title}
+                                basicStyle={el.basicStyle}
+                            />
+                        )
+                    })}
+                </Flex>
+            </StyledFont24>
+            <StyledFont24>
                 <PhoneNumber
                     number={'+7-999-111-22-33'}
                 />
-            </div>
-        </div>
+            </StyledFont24>
+        </HeaderContainer>
     )
 }

@@ -1,23 +1,57 @@
 import React from "react";
-import { Btn } from "../Offer/Btn";
+import { Btn, BuyBtn } from "../Offer/Btn";
 import { FC } from "react";
+import { StyledFont20, StyledFont22, Title } from "../Styled/Fonts.styled";
+import styled from "styled-components";
+import { Flex, StyledFlexContainer } from "../Styled/Flex.styled";
 
 interface ProductItemProps {
     title: string,
     price: string
 }
 
+const StyledImg = styled('img')`
+    & {
+        background-color: #C4C4C4;
+        height: 215px;
+        width: 205px;
+    }
+`
+
+const StyledProductItem = styled(StyledFlexContainer)`
+    &:not(:last-child) {
+        margin-right: 40px;
+      }
+`
+
+const ProductName = styled(StyledFont22) `
+    & {
+        padding: 16px 0;
+    }
+`
+
+const ProductPrice = styled(StyledFont20) `
+    & {
+        padding-bottom: 81px;
+    }
+`
+
+
 export const ProductItem: FC<ProductItemProps> = ({ title, price }): JSX.Element => {
     return (
-        <div className="product--item">
-            <div className="img">
-            </div>
-            <p style={{ padding: '16px 0' }} className="font--base style22">{title}</p>
-            <p style={{ paddingBottom: '81px' }} className="font--base style20"><strong>{price}</strong></p>
-            <Btn isOptional={true}>
+        <StyledProductItem
+            direction={'column'}
+            justify={'space-between'}
+            padding={'20px'}
+            width={'255px'}
+        >
+            <StyledImg />
+            <ProductName>{title}</ProductName>
+            <ProductPrice><strong>{price}</strong></ProductPrice>
+            <BuyBtn>
                 Купить
-            </Btn>
-        </div>
+            </BuyBtn>
+        </StyledProductItem>
     )
 }
 
@@ -44,9 +78,9 @@ const products: LinkedProductsArray = [
 
 export const Popular: FC = () => {
     return (
-        <div className="container--popular">
-            <h2 style={{ margin: '40px 0 30px 0' }} className="font--base style36">Популярное</h2>
-            <div className="products--container">
+        <div>
+            <Title margin={'48px 0 30px 0'}>Популярное</Title>
+            <Flex pb={'48px'}>
                 {products.map((product) => {
                     return (
                         <ProductItem
@@ -55,7 +89,7 @@ export const Popular: FC = () => {
                         />
                     )
                 })}
-            </div>
+            </Flex>
         </div>
     )
 }

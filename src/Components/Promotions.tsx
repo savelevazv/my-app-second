@@ -1,5 +1,9 @@
 import React, { ReactNode } from "react";
 import { FC } from "react";
+import styled from "styled-components";
+import { Flex, StyledFlexContainer } from "./Styled/Flex.styled";
+import { StyledFont20, Title } from "./Styled/Fonts.styled";
+import { GridBlock } from "./Styled/Grid.styled";
 
 interface PromotialCardProps {
     date: string,
@@ -8,19 +12,20 @@ interface PromotialCardProps {
 
 export const PromotionalCard: FC<PromotialCardProps> = ({ date, title }): JSX.Element => {
     return (
-        <div className="promotional--card">
-            <p className="font--base style20">{date}</p>
-            <h3 className="promotional--card--title font--base style36">{title}</h3>
-        </div>
+        <StyledFlexContainer
+            direction={'column'}
+            justify={'space-between'}
+            wrap={'nowrap'}
+            padding={'24px'}
+            minHeight={'335px'}
+        >
+            <StyledFont20>{date}</StyledFont20>
+            <Title textAlign={'right'}>{title}</Title>
+        </StyledFlexContainer>
     )
 }
 
-interface CardInfoObject {
-    date: string,
-    title: ReactNode
-}
-
-type CardsInfoArray = Array<CardInfoObject>
+type CardsInfoArray = Array<PromotialCardProps>
 
 const cardsInfo: CardsInfoArray = [
     {
@@ -44,9 +49,19 @@ const cardsInfo: CardsInfoArray = [
 
 export const Promotions: FC = () => {
     return (
-        <div className="promotions--container">
-            <h2 style={{ margin: '48px 0 30px 0' }} className="font--base style36">Акции</h2>
-            <div className="promotions--cards--container">
+        <Flex
+            direction={'column'}
+            wrap={'nowrap'}
+        >
+            <Title margin={'48px 0 30px 0'}>Акции</Title>
+            <GridBlock
+                templatecolumns={'repeat(4, 1fr)'}
+                templaterows={'repeat(1, 1fr)'}
+                gap={'40px'}
+                width={'100%'}
+                mb={'48px'}
+
+            >
                 {cardsInfo.map((item) => {
                     return (
                         <PromotionalCard
@@ -55,7 +70,7 @@ export const Promotions: FC = () => {
                         />
                     )
                 })}
-            </div>
-        </div>
+            </GridBlock>
+        </Flex>
     )
 }

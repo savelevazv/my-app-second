@@ -1,16 +1,42 @@
 import React from "react";
 import { FC } from "react";
+import { NavigationArrayItem } from "./Categories";
+import styled, { css } from "styled-components";
 
-interface LinkProps {
-    to: string,
-    title: string,
+interface LinkProps extends NavigationArrayItem {
     basicStyle?: boolean
 }
 
+interface LinksContainerProps {
+    basicStyle?: boolean
+}
+
+const headerLinksCss = css`
+&:not(:last-child) {
+    padding-right: 44px;
+}
+`
+
+const footerLinksCss = css`
+& {
+    padding-bottom: 8px;
+}
+`
+
+const LinksContainer = styled('div') <LinksContainerProps>`
+${props => props.basicStyle ? headerLinksCss : footerLinksCss}
+`
+
+export const LinksStyled = styled('a') `
+& {
+    text-decoration: none;
+}
+`
+
 export const Link: FC<LinkProps> = ({ to, title, basicStyle }): JSX.Element => {
     return (
-        <div className={basicStyle ? "link--container" : "footer--link--container"}>
-            <a href={to}>{title}</a>
-        </div>
+        <LinksContainer basicStyle={basicStyle}>
+            <LinksStyled href={to}>{title}</LinksStyled>
+        </LinksContainer>
     )
 }

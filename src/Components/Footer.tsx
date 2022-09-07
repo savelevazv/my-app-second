@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "./Link";
+import { NavigationArrayItem } from "./Categories";
 import { FC } from "react";
+import styled from "styled-components";
+import { StyledFont16, StyledFont20 } from "./Styled/Fonts.styled";
+import { GridBlock } from "./Styled/Grid.styled";
 
-interface ArrayFooter {
-    to: string,
-    title: string
-}
 
-type LinkedArrayFooter = Array<ArrayFooter>
+type LinkedArrayFooter = Array<NavigationArrayItem>
 
 const footerElements: LinkedArrayFooter = [
     {
@@ -66,13 +66,19 @@ interface FooterProps {
     thirdBlock: FooterBlockProps
 }
 
+const TitleFooterList = styled(StyledFont20)`
+    & {
+        padding-Bottom: 16px;
+    }
+`
+
 export const FooterBlock: FC<FooterBlockProps> = ({ title }): JSX.Element => {
     return (
         <div className="footer--list">
-            <p style={{ paddingBottom: '16px' }} className="font--base style20">
+            <TitleFooterList>
                 <strong>{title}</strong>
-            </p>
-            <div className="font--base style16">
+            </TitleFooterList>
+            <StyledFont16>
                 {footerElements.map((el) => {
                     return (
                         <Link
@@ -81,19 +87,27 @@ export const FooterBlock: FC<FooterBlockProps> = ({ title }): JSX.Element => {
                         />
                     )
                 })}
-            </div>
+            </StyledFont16>
         </div>
     )
 }
 
+const FooterListContainer = styled('div') `
+    & {
+        margin: 69px 0 38px 0;
+    }
+`
+
 export const Footer: FC<FooterProps> = ({ firstBlock, secondBlock, thirdBlock }): JSX.Element => {
     return (
-        <div style={{ margin: '68px 0 38px 0' }}>
-            <div className="footer--list--container">
+        <FooterListContainer>
+            <GridBlock 
+                templatecolumns={'repeat(3, 1fr)'}
+            >
                 <FooterBlock {...firstBlock} />
                 <FooterBlock {...secondBlock} />
                 <FooterBlock {...thirdBlock} />
-            </div>
-        </div>
+            </GridBlock>
+        </FooterListContainer>
     )
 }

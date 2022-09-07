@@ -15,10 +15,24 @@ import { Popular } from './Components/Popular/Popular';
 import { Footer } from './Components/Footer';
 import { Arrow } from "./Components/Popular/Arrow"
 import { Divider } from './Components/Divider';
+import { createGlobalStyle } from 'styled-components';
+import styled from "styled-components";
+
+const Global = createGlobalStyle`
+* {
+  color: #000000;
+  box-sizing: border-box;
+  margin: 0;
+
+  font-family: 'Inter';
+  font-style: normal;
+}
+`
 
 function App() {
   return (
     <>
+    <Global/>
       <CenteredLayout>
         <Header />
         <CenteredLayoutBody>
